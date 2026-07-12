@@ -1,3 +1,7 @@
+output "arc_kubernetes_clusters_id" {
+  description = "Map of id values across all arc_kubernetes_clusters, keyed the same as var.arc_kubernetes_clusters"
+  value       = { for k, v in azurerm_arc_kubernetes_cluster.arc_kubernetes_clusters : k => v.id }
+}
 output "arc_kubernetes_clusters_agent_public_key_certificate" {
   description = "Map of agent_public_key_certificate values across all arc_kubernetes_clusters, keyed the same as var.arc_kubernetes_clusters"
   value       = { for k, v in azurerm_arc_kubernetes_cluster.arc_kubernetes_clusters : k => v.agent_public_key_certificate }
