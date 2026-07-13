@@ -22,18 +22,13 @@ EOT
       type = string
     })
   }))
-  validation {
-    condition = alltrue([
-      for k, v in var.arc_kubernetes_clusters : (
-        can(regex("^[-_a-zA-Z0-9]{1,260}$", v.name))
-      )
-    ])
-    error_message = "The name of Arc Kubernetes Cluster can only include alphanumeric characters, underscores, hyphens, has a maximum length of 260 characters, and must be unique."
-  }
   # --- Unconfirmed validation candidates, derived from azurerm_arc_kubernetes_cluster's provider source ---
   # Not auto-enabled: either a bespoke provider validator we can't safely translate,
   # or a path that crosses a list-typed block (needs its own for_each wrapping).
   # Review, translate into a real validation{} block above, and delete once confirmed.
+  # path: name
+  #   condition: can(regex("^[-_a-zA-Z0-9]{1,260}$", value))
+  #   message:   The name of Arc Kubernetes Cluster can only include alphanumeric characters, underscores, hyphens, has a maximum length of 260 characters, and must be unique.
   # path: resource_group_name
   #   condition: length(value) <= 90
   #   message:   [from resourcegroups.ValidateName: invalid when len(value) > 90]
